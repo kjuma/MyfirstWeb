@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-from flask import Flask
+from flask import Flask, make_response
+#from flask import request
+
 
 
 app= Flask(__name__)
@@ -9,23 +11,27 @@ app= Flask(__name__)
 @app.route('/')
 
 def index():
-    return "i am in Rwanda"
+	#user_agent=request.headers.get('User-Agent')
+	return make_response("<h1> Your browser </h1>")
 
 @app.route('/<kigali>')
 
 def rda(kigali):
-    return "i am in capital of Rwanda"
+    response= make_response("i am in capital of Rwanda")
+    return response
 
 @app.route('/greet/<name>')
 
 def greet(name):
-    return "<h1>Mwaramutse, %s how is home?<h1>" % name
+    response=make_response("<h1>Mwaramutse, %s how is home?<h1>" % name)
+    return response
 
 @app.route('/counter/<int:num>')
 
 def counter(num):
 	dict = {1:'one', 2:'two', 3:'three', 4:'four', 5:'five'}
-	return 'Number %s' % dict.get( num,'unknown')
+	response= make_response('Number %s' % dict.get( num,'unknown'))
+	return response
 
 
 if __name__ == '__main__':
